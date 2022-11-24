@@ -45,5 +45,6 @@ Log.fatal("fatal")
 ```
 
 Here an Image where you can see how it looks
+
 ![Screenshot 2022-11-24 at 21 38 16](https://user-images.githubusercontent.com/116830002/203861349-98dfc31a-edfa-4f8e-a493-7ce2210afab1.png)
 
