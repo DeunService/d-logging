@@ -45,4 +45,4 @@ Log.fatal("fatal")
 ```
 
 Here an Image where you can see how it looks
-[logo]: https://cdn.discordapp.com/attachments/968045722551337020/1045438320743821413/Screenshot_2022-11-24_at_21.38.16.png
+![alt text] (https://cdn.discordapp.com/attachments/968045722551337020/1045438320743821413/Screenshot_2022-11-24_at_21.38.16.png)
