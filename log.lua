@@ -36,6 +36,13 @@ Log = {
             -- %s is an placeholder for the name of the resource where the prints come from
             file = "logs/%s.txt"
         },
+        {
+            name = 'discord',
+            color = "\27[34m",
+            -- You could add an webhook to every option if you want
+            -- Set here the webhook of one of your discord channels
+            webhook = "https://discord.com/api/webhooks/999321848728797184/kyRil8dS_F3-z7obB8wxWE_fDtRmKxTXSgLWZgWSJ8dLdjtn48tz4NU1XYb_dt5uSuli"
+        },
     },
     -- The scripts who are listed here wont be displayed in your console if they have d-logging prints
     HideScripts = {
@@ -83,7 +90,31 @@ for i, v in pairs(Log.Levels) do
                     nameupper, os.date(), lineinfo, msg)
                 fp:write(str)
                 fp:close()
+
+            end
+
+            if v.webhook and IsDuplicityVersion() then
+                sendDiscordLog(v.webhook, msg)
             end
         end
     end
+end
+
+function sendDiscordLog(webhook, description)
+    PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({
+        username = " ",
+        embeds = { {
+            ["color"] = 10650848,
+            ["author"] = {
+                ["name"] = "D-Logging",
+            },
+            ["description"] = tostring(description),
+            ["footer"] = {
+                ["text"] = os.date("%H:%M:%S"),
+            },
+        } },
+        avatar_url = 'https://cdn.discordapp.com/attachments/890638170247561277/939834062674206770/blackpurple.png'
+    }), {
+        ['Content-Type'] = 'application/json'
+    })
 end
