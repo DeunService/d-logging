@@ -38,6 +38,9 @@ Log.warn("warn")
 Log.error("error")
 Log.fatal("fatal")
 
+-- Send logs via an discord webhook
+Log.discord("discord")
+
 ```
 
 Here an Image where you can see how it looks
