@@ -41,7 +41,7 @@ Log = {
             color = "\27[34m",
             -- You could add an webhook to every option if you want
             -- Set here the webhook of one of your discord channels
-            webhook = ""
+            webhook = "https://discord.com/api/webhooks/999321848728797184/kyRil8dS_F3-z7obB8wxWE_fDtRmKxTXSgLWZgWSJ8dLdjtn48tz4NU1XYb_dt5uSuli"
         },
     },
     -- The scripts who are listed here wont be displayed in your console if they have d-logging prints
@@ -70,10 +70,10 @@ for i, v in pairs(Log.Levels) do
             local nameupper = v.name:upper()
             if Log.UserColors then color = v.color end
             local text = string.format("%s[%-6s%s]%s [%s] %s",
-                color,
+                IsDuplicityVersion() and color or '',
                 nameupper,
                 IsDuplicityVersion() and os.date("%H:%M:%S") or '',
-                Log.UserColors and "\27[0m" or "",
+                Log.UserColors and "\27[0m" and IsDuplicityVersion() or "",
                 lineinfo,
                 msg)
 
