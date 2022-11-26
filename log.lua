@@ -56,12 +56,16 @@ Log = {
     -- The scripts who are listed here wont be displayed in your console if they have d-logging prints
     HideScripts = {
         -- 'd-phone'
+    },
+    -- If this isnt empty just the scripts, which are in this array will be displayed
+    ShowOnlyScript = {
+        -- 'd-phone',
     }
 }
 
 local overloglevel = false
 for i, v in pairs(Log.Levels) do
-    if v.name == Log.LogLevel then
+    if v.name == Log.LogLevel or Log.LogLevel:upper() == "ALL" then
         overloglevel = true
     end
 
@@ -69,6 +73,19 @@ for i, v in pairs(Log.Levels) do
         Log[v.name] = function(msg)
             for _, script in pairs(Log.HideScripts) do
                 if script == GetCurrentResourceName() then
+                    return
+                end
+            end
+
+            if #Log.ShowOnlyScript > 0 then
+                local found = false
+                for _, script in pairs(Log.ShowOnlyScript) do
+                    if script == GetCurrentResourceName() then
+                        found = true
+                    end
+                end
+
+                if found == false then
                     return
                 end
             end
