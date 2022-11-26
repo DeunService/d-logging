@@ -9,23 +9,28 @@ Log = {
         {
             name = 'trace',
             color = "\27[34m",
+            print = true,
         },
         {
             name = 'debug',
-            color = "\27[36m"
+            color = "\27[36m",
+            print = true,
         },
         {
             name = 'info',
-            color = "\27[33m"
+            color = "\27[33m",
+            print = true,
         },
         {
             name = 'warn',
-            color = "\27[35m"
+            color = "\27[35m",
+            print = true,
         },
         {
             name = 'error',
             color = "\27[31m",
-            file = "d-log.txt"
+            file = "logs/%s.txt",
+            print = true,
         },
         {
             name = 'fatal',
@@ -34,14 +39,18 @@ Log = {
             -- If you set an file, it will create an file in fx directory of your server where you can see all e.g. fatal logs.
             -- To disable this, simple remove the line or add it to the level you wish.
             -- %s is an placeholder for the name of the resource where the prints come from
-            file = "logs/%s.txt"
+            file = "logs/%s.txt",
+            -- You can set this to false if you dont want to have the prints in the server console
+            -- It still wll save them to the file, if you have set one
+            print = true,
         },
         {
             name = 'discord',
             color = "\27[34m",
             -- You could add an webhook to every option if you want
             -- Set here the webhook of one of your discord channels
-            webhook = ""
+            webhook = "",
+            print = false,
         },
     },
     -- The scripts who are listed here wont be displayed in your console if they have d-logging prints
@@ -69,15 +78,16 @@ for i, v in pairs(Log.Levels) do
             local lineinfo = info.short_src .. ":" .. info.currentline
             local nameupper = v.name:upper()
             if Log.UserColors then color = v.color end
-            local text = string.format("%s[%-6s%s]%s [%s] %s",
-                IsDuplicityVersion() and color or '',
-                nameupper,
-                IsDuplicityVersion() and os.date("%H:%M:%S") or '',
-                Log.UserColors and "\27[0m" and IsDuplicityVersion() or "",
-                lineinfo,
-                msg)
-
-            print(text)
+            if v.print == nil or v.print and v.print == true then
+                local text = string.format("%s[%-6s%s]%s [%s] %s",
+                    IsDuplicityVersion() and color or '',
+                    nameupper,
+                    IsDuplicityVersion() and os.date("%H:%M:%S") or '',
+                    Log.UserColors and "\27[0m" and IsDuplicityVersion() or "",
+                    lineinfo,
+                    msg)
+                print(text)
+            end
 
             if v.file and IsDuplicityVersion() then
                 local fp = io.open(string.format(v.file, GetCurrentResourceName()), "a")
