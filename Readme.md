@@ -6,6 +6,8 @@ Discord > https://deun.xyz/discord
 
 Store > https://store.deun.xyz
 
+Docs > https://deun-services.gitbook.io/deun/
+
 ## Installation
 
 1. Drag it in your resource folder
